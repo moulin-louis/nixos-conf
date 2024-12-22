@@ -7,7 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -15,7 +18,7 @@
       self,
       nixpkgs,
       home-manager,
-      hyprland,
+    nix-index-database,
       ...
     }@inputs:
     {
@@ -29,11 +32,13 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.llr = import ./home-manager/home.nix;
-            # wayland.windowManager.hyprland = {
-            #   systemd.variables = ["--all"];
-            #   enable = true;
-            # };
           }
+        ];
+      };
+      homeConfigurations.llr = home-manager.lib.homeManagerConfiguration {
+        modules = [
+          nix-index-database.hmModules.nix-index
+          { programs.nix-index-database.comma.enable = true; }
         ];
       };
     };

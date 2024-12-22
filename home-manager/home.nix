@@ -66,10 +66,6 @@
 
   programs = {
     home-manager.enable = true;
-    nix-index = {
-      enable = true;
-      enableFishIntegration = true;
-    };
     git = {
       enable = true;
       userName = "moulin-louis";
