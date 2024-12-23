@@ -56,6 +56,7 @@
       discord
       qbittorrent
       whatsapp-for-linux
+      transmission_4-qt6
     ];
 
     sessionVariables = {
@@ -66,6 +67,11 @@
 
   programs = {
     home-manager.enable = true;
+    nix-index = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    command-not-found.enable = false;
     git = {
       enable = true;
       userName = "moulin-louis";
