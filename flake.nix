@@ -7,10 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -18,7 +14,6 @@
       self,
       nixpkgs,
       home-manager,
-      nix-index-database,
       ...
     }@inputs:
     {
@@ -27,8 +22,6 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          nix-index-database.nixosModules.nix-index
-          { programs.nix-index-database.comma.enable = true; }
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
