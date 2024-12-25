@@ -8,6 +8,8 @@
       gcl = "git clone";
       # System
       rebuild = "sudo nixos-rebuild switch --upgrade";
+      ls = "eza";
+      cat = "bat";
     };
 
     interactiveShellInit =
