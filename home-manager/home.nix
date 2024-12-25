@@ -6,10 +6,8 @@
     ./fish.nix
     ./hyprland.nix
     ./gnome.nix
-    ./nix-index-database.nix
-
   ];
-  
+
   home = {
     username = "llr";
     homeDirectory = "/home/llr";
@@ -33,7 +31,7 @@
       sccache
       eslint_d
       nixpacks
-       gnumake
+      gnumake
       binutils
       pkg-config
       udev
@@ -80,7 +78,7 @@
       enable = true;
     };
   };
-  
+
   # Your existing xresources configuration
   xresources.properties = {
     "Xcursor.size" = 16;

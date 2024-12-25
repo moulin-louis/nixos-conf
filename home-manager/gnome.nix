@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-dconf.settings = {
+  dconf.settings = {
 
     "org/gnome/desktop/interface" = {
       enable-animations = false;
