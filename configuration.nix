@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
   ];
+  
 
   nix.settings = {
     trusted-users = [ "llr" ];
@@ -26,7 +27,7 @@
   programs.nix-ld.enable = true;
 
   # Networking
-  networking.hostName = "nixos";
+  networking.hostName = "nixos-portable";
   networking.networkmanager.enable = true;
 
   # Time and Locale
@@ -58,7 +59,6 @@
       layout = "us";
       variant = "";
     };
-    videoDrivers = [ "nvidia" ];
   };
   services.libinput.mouse = {
     accelProfile = "flat";
@@ -74,15 +74,7 @@
     pulse.enable = true;
   };
 
-  # NVIDIA
   hardware.graphics.enable = true;
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-  };
 
   # User configuration
   users.users.llr = {
@@ -102,24 +94,15 @@
     enable = true;
   };
   programs.fish.enable = true;
-  programs.hyprland = {
-    enable = true;
-    xwayland = {
-      enable = true;
-    };
-  };
   virtualisation.docker.enable = true;
-  services.jellyfin = {
-    enable = true;
-    openFirewall = true;
-    user = "llr";
-  };
-
   # Bluetooth
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
     settings.General.Experimental = true;
+  };
+  services.blueman = {
+    enable = true;
   };
 
   # Allow unfree packages

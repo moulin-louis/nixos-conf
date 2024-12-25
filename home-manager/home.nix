@@ -4,7 +4,6 @@
     ./kitty.nix
     ./tmux.nix
     ./fish.nix
-    ./hyprland.nix
     ./gnome.nix
   ];
 
@@ -50,9 +49,6 @@
       nmap
 
       # Applications
-      jellyfin
-      jellyfin-web
-      jellyfin-ffmpeg
       discord
       qbittorrent
       whatsapp-for-linux
@@ -69,7 +65,6 @@
   programs = {
     home-manager.enable = true;
     nix-index.enable = true;
-    command-not-found.enable = false;
     git = {
       enable = true;
       userName = "moulin-louis";
