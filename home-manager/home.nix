@@ -68,6 +68,7 @@
 
   programs = {
     home-manager.enable = true;
+    nix-index.enable = true;
     command-not-found.enable = false;
     git = {
       enable = true;
