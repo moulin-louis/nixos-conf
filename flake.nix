@@ -7,6 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -14,6 +18,7 @@
       self,
       nixpkgs,
       home-manager,
+      nix-index-database,
       ...
     }@inputs:
     {
@@ -28,6 +33,8 @@
             home-manager.useUserPackages = true;
             home-manager.users.llr = import ./home-manager/home.nix;
           }
+          { programs.nix-index.enable = true; }
+          nix-index-database.nixosModules.nix-index
         ];
       };
     };
