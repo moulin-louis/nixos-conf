@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./kitty.nix
@@ -6,8 +6,10 @@
     ./fish.nix
     ./hyprland.nix
     ./gnome.nix
-  ];
+    ./nix-index-database.nix
 
+  ];
+  
   home = {
     username = "llr";
     homeDirectory = "/home/llr";
@@ -68,10 +70,6 @@
 
   programs = {
     home-manager.enable = true;
-    nix-index = {
-      enable = true;
-      enableFishIntegration = true;
-    };
     command-not-found.enable = false;
     git = {
       enable = true;
