@@ -3,16 +3,15 @@
   imports = [
     ./hardware-configuration.nix
   ];
+  
 
   nix.settings = {
     trusted-users = [ "llr" ];
     substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
-      "https://hyprland.cachix.org"
     ];
     trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
     experimental-features = [
@@ -58,7 +57,6 @@
       layout = "us";
       variant = "";
     };
-    videoDrivers = [ "nvidia" ];
   };
   services.libinput.mouse = {
     accelProfile = "flat";
@@ -74,15 +72,7 @@
     pulse.enable = true;
   };
 
-  # NVIDIA
   hardware.graphics.enable = true;
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-  };
 
   # User configuration
   users.users.llr = {
@@ -102,24 +92,15 @@
     enable = true;
   };
   programs.fish.enable = true;
-  programs.hyprland = {
-    enable = true;
-    xwayland = {
-      enable = true;
-    };
-  };
   virtualisation.docker.enable = true;
-  services.jellyfin = {
-    enable = true;
-    openFirewall = true;
-    user = "llr";
-  };
-
   # Bluetooth
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
     settings.General.Experimental = true;
+  };
+  services.blueman = {
+    enable = true;
   };
 
   # Allow unfree packages
