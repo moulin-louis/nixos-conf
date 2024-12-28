@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-  documentation.man.generateCaches = false;
   programs.fish = {
     enable = true;
     # Fish shell aliases
