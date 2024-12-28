@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  documentation.man.generateCaches = false;
   programs.fish = {
     enable = true;
     # Fish shell aliases
@@ -7,7 +8,7 @@
       # Common commands
       gcl = "git clone";
       # System
-      rebuild = "sudo nixos-rebuild switch --flake $HOME/nixos-config/#nixos";
+      rebuild = "sudo nixos-rebuild switch --flake $HOME/nixos-config/#nixos-fixe";
       ls = "eza";
       cat = "bat";
     };
