@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ./hardware-configuration.nix
+    ./hardware-configuration-nixos-fixe.nix
   ];
 
   nix.settings = {
@@ -24,7 +24,7 @@
   programs.nix-ld.enable = true;
 
   # Networking
-  networking.hostName = "nixos";
+  networking.hostName = "nixos-fixe";
   networking.networkmanager.enable = true;
 
   # Time and Locale
