@@ -123,4 +123,6 @@
   ];
 
   system.stateVersion = "24.11";
+
+  documentation.man.generateCaches = false;
 }
