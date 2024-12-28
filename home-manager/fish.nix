@@ -7,7 +7,9 @@
       # Common commands
       gcl = "git clone";
       # System
-      rebuild = "sudo nixos-rebuild switch --upgrade";
+      rebuild = "sudo nixos-rebuild switch --flake $HOME/nixos-config/#nixos";
+      ls = "eza";
+      cat = "bat";
     };
     interactiveShellInit = ''
       if not set -q TMUX
