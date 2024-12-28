@@ -1,4 +1,4 @@
-{ config, pkgs, ghostty, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./kitty.nix
@@ -57,7 +57,6 @@
       whatsapp-for-linux
       transmission_4-qt6
       protonmail-desktop
-      ghostty.packages.x86_64-linux.default
     ];
 
     sessionVariables = {
