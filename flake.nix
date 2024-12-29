@@ -19,8 +19,7 @@
       nixpkgs,
       home-manager,
       treefmt-nix,
-      ...
-    }@inputs:
+    }:
     let
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
