@@ -2,7 +2,6 @@
 {
   imports = [
     ./kitty.nix
-    ./tmux.nix
     ./fish.nix
     ./gnome.nix
   ];

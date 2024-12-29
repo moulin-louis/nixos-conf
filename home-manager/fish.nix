@@ -12,9 +12,6 @@
       cat = "bat";
     };
     interactiveShellInit = ''
-      if not set -q TMUX
-          exec tmux
-      end
       set fish_greeting
       set -g nvm_default_version lts
     '';
