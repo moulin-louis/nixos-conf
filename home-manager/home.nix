@@ -35,6 +35,7 @@
       udev
       protobuf
       openssl.dev
+      taplo # toml formatter
 
       # System utilities
       wget

@@ -1,0 +1,8 @@
+[formatter.nix]
+command = "nixfmt"
+includes = ["*.nix"]
+options = ["--rfc-style"]
+
+[formatter.toml]
+command = "taplo"
+includes = ["*.toml"]
