@@ -4,6 +4,7 @@
     ./hardware-configuration-nixos-fixe.nix
   ];
 
+  system.stateVersion = "24.11";
   nix.settings = {
     trusted-users = [ "llr" ];
     substituters = [
@@ -19,33 +20,34 @@
     ];
   };
   # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  programs.nix-ld.enable = true;
-
-  # Networking
-  networking.hostName = "nixos-fixe";
-  networking.networkmanager.enable = true;
-
-  # Time and Locale
-  time.timeZone = "Europe/Paris";
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.UTF-8";
-    LC_IDENTIFICATION = "fr_FR.UTF-8";
-    LC_MEASUREMENT = "fr_FR.UTF-8";
-    LC_MONETARY = "fr_FR.UTF-8";
-    LC_NAME = "fr_FR.UTF-8";
-    LC_NUMERIC = "fr_FR.UTF-8";
-    LC_PAPER = "fr_FR.UTF-8";
-    LC_TELEPHONE = "fr_FR.UTF-8";
-    LC_TIME = "fr_FR.UTF-8";
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
   };
 
-  # System-wide fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.fira-code
-  ];
+  # Networking
+  networking = {
+    hostName = "nixos-fixe";
+    networkmanager.enable = true;
+  };
+
+  # Time and Locale
+  time = {
+    timeZone = "Europe/Paris";
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "fr_FR.UTF-8";
+      LC_IDENTIFICATION = "fr_FR.UTF-8";
+      LC_MEASUREMENT = "fr_FR.UTF-8";
+      LC_MONETARY = "fr_FR.UTF-8";
+      LC_NAME = "fr_FR.UTF-8";
+      LC_NUMERIC = "fr_FR.UTF-8";
+      LC_PAPER = "fr_FR.UTF-8";
+      LC_TELEPHONE = "fr_FR.UTF-8";
+      LC_TIME = "fr_FR.UTF-8";
+    };
+
+  };
 
   # X11 and Desktop Environment
   services.xserver = {
@@ -82,24 +84,13 @@
     package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
-  # User configuration
-  users.users.llr = {
-    isNormalUser = true;
-    description = "llr";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-    ];
-    shell = pkgs.fish;
-  };
-
   # System-wide services
-  programs.dconf.enable = true;
-  programs.ccache = {
-    enable = true;
+  programs = {
+    nix-ld.enable = true;
+    dconf.enable = true;
+    ccache.enable = true;
+    fish.enable = true;
   };
-  programs.fish.enable = true;
   virtualisation.docker.enable = true;
   services.jellyfin = {
     enable = true;
@@ -119,10 +110,23 @@
   environment.systemPackages = with pkgs; [
     gcc
     clang
-    egl-wayland
   ];
 
-  system.stateVersion = "24.11";
-
   documentation.man.generateCaches = false;
+  # System-wide fonts
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+  ];
+  # User configuration
+  users.users.llr = {
+    isNormalUser = true;
+    description = "llr";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
+    shell = pkgs.fish;
+  };
+
 }
