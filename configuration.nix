@@ -33,7 +33,10 @@
 
   # Time and Locale
   time = {
+
     timeZone = "Europe/Paris";
+  };
+  i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
       LC_ADDRESS = "fr_FR.UTF-8";
