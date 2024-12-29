@@ -7,6 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -14,10 +18,14 @@
       self,
       nixpkgs,
       home-manager,
+      treefmt-nix,
       ...
     }@inputs:
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      formatter.x86_64-linux = treefmt-nix.lib.mkWrapper nixpkgs.legacyPackages.x86_64-linux {
+        projectRootFile = "flake.nix";
+        programs.nixfmt.enable = true;
+      };
       nixosConfigurations."nixos-fixe" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [

@@ -24,15 +24,21 @@
       font_size = "9.5";
     };
     keybindings = {
-      # Window splits 
+      # Windows splits
       "ctrl+shift+minus" = "launch --location=hsplit --cwd=current";
       "ctrl+shift+backslash" = "launch --location=split --cwd=current";
 
-      # Window navigation 
+      # Windows navigation
       "ctrl+shift+left" = "neighboring_window left";
       "ctrl+shift+right" = "neighboring_window right";
       "ctrl+shift+up" = "neighboring_window up";
       "ctrl+shift+down" = "neighboring_window down";
+
+      # Windows Resize
+      "ctrl+shift+alt+left" = "resize_window narrower";
+      "ctrl+shift+alt+right" = "resize_window wider";
+      "ctrl+shift+alt+up" = "resize_window taller";
+      "ctrl+shift+alt+down" = "resize_window shorter";
     };
     themeFile = "Catppuccin-Mocha";
   };
