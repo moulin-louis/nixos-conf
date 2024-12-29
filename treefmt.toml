@@ -1,3 +1,4 @@
+verbose = 2
 [formatter.nix]
 command = "nixfmt"
 includes = ["*.nix"]
@@ -5,4 +6,5 @@ options = ["--rfc-style"]
 
 [formatter.toml]
 command = "taplo"
-includes = ["*.toml"]
+options = ["format"]
+includes = ["*.toml", "treefmt.toml"]

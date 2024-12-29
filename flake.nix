@@ -22,10 +22,7 @@
       ...
     }@inputs:
     {
-      formatter.x86_64-linux = treefmt-nix.lib.mkWrapper nixpkgs.legacyPackages.x86_64-linux {
-        projectRootFile = "flake.nix";
-        programs.nixfmt.enable = true;
-      };
+      formatter.x86_64-linux = treefmt-nix.lib.mkWrapper nixpkgs.legacyPackages.x86_64-linux (import ./treefmt.nix);
       nixosConfigurations."nixos-fixe" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
