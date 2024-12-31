@@ -33,7 +33,6 @@
 
   # Time and Locale
   time = {
-
     timeZone = "Europe/Paris";
   };
   i18n = {
