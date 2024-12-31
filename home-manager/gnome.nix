@@ -16,7 +16,8 @@
     };
     "org/gnome/mutter" = {
       dynamic-workspaces = true;
-      workspaces-only-on-primary = true;
+      workspaces-only-on-primary = false;
+      edge-tiling = true;
     };
     "org/gnome/settings-daemon/plugins/color" = {
       nigh-light-enabled = true;
