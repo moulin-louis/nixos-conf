@@ -55,7 +55,6 @@
       discord
       qbittorrent
       whatsapp-for-linux
-      transmission_4-qt6
       protonmail-desktop
     ];
 

@@ -100,6 +100,18 @@
     user = "llr";
   };
 
+  services.transmission = { 
+    enable = true; #Enable transmission daemon
+    openRPCPort = true; #Open firewall for RPC
+    settings = { #Override default settings
+      rpc-bind-address = "0.0.0.0"; #Bind to own IP
+      rpc-whitelist = "*.*.*.*";
+      rpc-username = "llr";
+      rpc-password = "v7MHua6!LKdT6u0m";
+      rpc-authentication-required = true;
+    };
+  };
+
   # Bluetooth
   hardware.bluetooth = {
     enable = true;
