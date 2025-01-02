@@ -9,4 +9,7 @@
   programs.taplo = {
     enable = true;
   };
+  programs.yamlfmt = {
+    enable = true;
+  };
 }
