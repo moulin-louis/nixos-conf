@@ -89,14 +89,14 @@
   # System-wide services
   services.openssh = {
     enable = true;
-    ports = [ 22 ];  # Change from default port 22
+    ports = [ 22 ];
     openFirewall = true;
     settings = {
       PasswordAuthentication = false;
       PubkeyAuthentication = true;
       PermitRootLogin = "no";
-      AllowUsers = ["llr"];
-      
+      AllowUsers = [ "llr" ];
+
       # Restrict key exchange, cipher, and MAC algorithms
       KexAlgorithms = [
         "curve25519-sha256@libssh.org"
@@ -132,11 +132,12 @@
     user = "llr";
   };
 
-  services.transmission = { 
-    enable = true; #Enable transmission daemon
-    openRPCPort = true; #Open firewall for RPC
-    settings = { #Override default settings
-      rpc-bind-address = "0.0.0.0"; #Bind to own IP
+  services.transmission = {
+    enable = true; # Enable transmission daemon
+    openRPCPort = true; # Open firewall for RPC
+    settings = {
+      # Override default settings
+      rpc-bind-address = "0.0.0.0"; # Bind to own IP
       rpc-whitelist = "*.*.*.*";
       rpc-username = "llr";
       rpc-password = "v7MHua6!LKdT6u0m";
