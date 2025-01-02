@@ -7,9 +7,10 @@
       # Common commands
       gcl = "git clone";
       # System
-      rebuild = "sudo nixos-rebuild switch --flake $HOME/nixos-config/#nixos-fixe";
+      rebuild = "sudo nixos-rebuild switch --flake $HOME/nixos-config/#(hostname)";
       ls = "eza";
       cat = "bat";
+      cd = "z";
     };
     interactiveShellInit = ''
       set fish_greeting
@@ -23,6 +24,7 @@
       if test -f "$HOME/.cargo/env.fish"
         source "$HOME/.cargo/env.fish"
       end
+      zoxide init fish | source
     '';
     plugins = [
       {

@@ -46,6 +46,8 @@
       xclip
       bat
       eza
+      zoxide
+      fzf
       nmap
       pre-commit
       cabal-install # pre-commit deps
