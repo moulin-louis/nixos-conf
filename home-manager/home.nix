@@ -48,6 +48,8 @@
       eza
       nmap
       pre-commit
+      cabal-install # pre-commit deps
+      ghc # pre-commit deps
 
       # Applications
       jellyfin
