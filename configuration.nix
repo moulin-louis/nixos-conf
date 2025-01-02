@@ -87,6 +87,38 @@
   };
 
   # System-wide services
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];  # Change from default port 22
+    openFirewall = true;
+    settings = {
+      PasswordAuthentication = false;
+      PubkeyAuthentication = true;
+      PermitRootLogin = "no";
+      AllowUsers = ["llr"];
+      
+      # Restrict key exchange, cipher, and MAC algorithms
+      KexAlgorithms = [
+        "curve25519-sha256@libssh.org"
+        "diffie-hellman-group16-sha512"
+        "diffie-hellman-group18-sha512"
+      ];
+      Ciphers = [
+        "chacha20-poly1305@openssh.com"
+        "aes256-gcm@openssh.com"
+        "aes128-gcm@openssh.com"
+      ];
+
+      # Additional security settings
+      X11Forwarding = false;
+      MaxAuthTries = 3;
+      LoginGraceTime = 30;
+      PermitEmptyPasswords = false;
+      ClientAliveInterval = 300;
+      ClientAliveCountMax = 2;
+    };
+  };
+  services.fail2ban.enable = true;
   programs = {
     nix-ld.enable = true;
     dconf.enable = true;
