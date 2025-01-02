@@ -47,6 +47,7 @@
       bat
       eza
       nmap
+      pre-commit
 
       # Applications
       jellyfin
