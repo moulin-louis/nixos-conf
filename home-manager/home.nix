@@ -21,7 +21,6 @@
       binutils
       cmake
       pkg-config
-      gdb
       python3
       python312Packages.pip
       nodejs
@@ -30,17 +29,11 @@
       eslint_d
       nixpacks
       gnumake
-      binutils
-      pkg-config
-      udev
-      protobuf
-      openssl.dev
       taplo # toml formatter
 
       # System utilities
       wget
       curl
-      stow
       unzip
       ripgrep
       xclip
@@ -59,12 +52,11 @@
       jellyfin-ffmpeg
       discord
       qbittorrent
-      whatsapp-for-linux
       protonmail-desktop
     ];
 
     sessionVariables = {
-      EDITOR = "vim";
+      EDITOR = "nvim";
     };
 
   };
