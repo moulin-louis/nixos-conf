@@ -109,6 +109,9 @@
       rpc-username = "llr";
       rpc-password = "v7MHua6!LKdT6u0m";
       rpc-authentication-required = true;
+      download-dir = "/srv/EHDD/";
+      incomplete-dir = "/srv/EHDD/incomplete/";
+      incomplete-dir-enabled = true;
     };
   };
 
@@ -139,8 +142,8 @@
       "networkmanager"
       "wheel"
       "docker"
+      "transmission"
     ];
     shell = pkgs.fish;
   };
-
 }
