@@ -24,6 +24,9 @@
       font_size = "9.5";
     };
     keybindings = {
+      #Tabs Navigation
+      "ctrl+shift+n" = "next_tab";
+
       # Windows splits
       "ctrl+shift+minus" = "launch --location=hsplit --cwd=current";
       "ctrl+shift+backslash" = "launch --location=split --cwd=current";

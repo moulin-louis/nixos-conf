@@ -30,6 +30,7 @@
       nixpacks
       gnumake
       taplo # toml formatter
+      typescript-language-server
 
       # System utilities
       wget
