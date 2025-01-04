@@ -28,7 +28,7 @@
       formatter.x86_64-linux = treefmtEval.config.build.wrapper;
       nixosConfigurations."pc-fixe" = nixpkgs.lib.nixosSystem {
         modules = [
-          ./configuration.nix
+          ./pc-fixe/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -37,9 +37,9 @@
           }
         ];
       };
-nixosConfigurations."pc-portable" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."pc-portable" = nixpkgs.lib.nixosSystem {
         modules = [
-          ./configuration.nix
+          ./pc-portable/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
