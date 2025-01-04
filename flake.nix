@@ -1,10 +1,14 @@
 {
-  description = "A simple NixOS flake";
+  description = "my nixos config";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -14,12 +18,15 @@
       self,
       nixpkgs,
       home-manager,
-      ...
-    }@inputs:
+      treefmt-nix,
+    }:
+    let
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+    in
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-      nixosConfigurations."nixos-portable" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+      formatter.x86_64-linux = treefmtEval.config.build.wrapper;
+      nixosConfigurations."nixos-fixe" = nixpkgs.lib.nixosSystem {
         modules = [
           ./configuration.nix
           home-manager.nixosModules.home-manager
@@ -28,7 +35,6 @@
             home-manager.useUserPackages = true;
             home-manager.users.llr = import ./home-manager/home.nix;
           }
-          
         ];
       };
     };

@@ -2,7 +2,6 @@
 {
   imports = [
     ./kitty.nix
-    ./tmux.nix
     ./fish.nix
     ./gnome.nix
   ];
@@ -22,7 +21,6 @@
       binutils
       cmake
       pkg-config
-      gdb
       python3
       python312Packages.pip
       nodejs
@@ -31,33 +29,32 @@
       eslint_d
       nixpacks
       gnumake
-      binutils
-      pkg-config
-      udev
-      protobuf
-      openssl.dev
+      taplo # toml formatter
+      typescript-language-server
 
       # System utilities
       wget
       curl
-      stow
       unzip
       ripgrep
       xclip
       bat
       eza
+      zoxide
+      fzf
       nmap
+      pre-commit
+      cabal-install # pre-commit deps
+      ghc # pre-commit deps
 
       # Applications
       discord
       qbittorrent
-      whatsapp-for-linux
-      transmission_4-qt6
       protonmail-desktop
     ];
 
     sessionVariables = {
-      EDITOR = "vim";
+      EDITOR = "nvim";
     };
 
   };
