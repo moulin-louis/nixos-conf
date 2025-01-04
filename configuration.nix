@@ -25,7 +25,7 @@
   programs.nix-ld.enable = true;
 
   # Networking
-  networking.hostName = "nixos-portable";
+  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
   # Time and Locale
