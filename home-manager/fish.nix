@@ -6,7 +6,7 @@
     shellAliases = {
       # Common commands
       gcl = "git clone";
-      rebuild = "sudo nixos-rebuild switch --flake $HOME/nixos-config/#(hostname)";
+      rebuild = "sudo nixos-rebuild switch --flake $HOME/nixos-conf/#(hostname)";
       ls = "eza";
       cat = "bat";
       cd = "z";
