@@ -51,9 +51,9 @@
       jellyfin
       jellyfin-web
       jellyfin-ffmpeg
-      discord
       qbittorrent
       protonmail-desktop
+      legcord
     ];
 
     sessionVariables = {
@@ -64,9 +64,6 @@
 
   programs = {
     home-manager.enable = true;
-    nix-index = {
-      enable = true;
-    };
     git = {
       enable = true;
       userName = "moulin-louis";

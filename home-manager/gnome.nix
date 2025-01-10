@@ -29,6 +29,9 @@
     "org/gnome/shell/app-switcher" = {
       current-workspace-only = true;
     };
+    "org/gnome/desktop/wm/keybindings/switch-windows" = {
+      switch-windows = ["<Alt>Tab"];   
+    }; 
 
   };
 
