@@ -29,7 +29,9 @@
     "org/gnome/shell/app-switcher" = {
       current-workspace-only = true;
     };
-
+    "org/gnome/shell" = {
+      favorite-apps = ["org.gnome.Nautilus.desktop" "kitty.desktop" "firefox.desktop"];
+    };
   };
 
 }
