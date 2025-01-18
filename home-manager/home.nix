@@ -1,4 +1,3 @@
-
 { config, pkgs, ... }:
 {
   imports = [
@@ -11,35 +10,43 @@
     homeDirectory = if pkgs.stdenv.isDarwin then "/Users/llr" else "/home/llr";
     stateVersion = "24.11";
 
-    packages = with pkgs; [
-      # Development tools
-      git
-      vim
-      neovim
-      python3
-      python312Packages.pip
-      nodejs
-      corepack_22
-      sccache
-      eslint_d
-      nixpacks
-      taplo
-      typescript-language-server
+    packages =
+      with pkgs;
+      [
+        # Development tools
+        git
+        vim
+        neovim
+        python3
+        python312Packages.pip
+        nodejs
+        corepack_22
+        sccache
+        eslint_d
+        nixpacks
+        taplo
+        typescript-language-server
 
-      # System utilities
-      wget
-      curl
-      unzip
-      ripgrep
-      bat
-      eza
-      zoxide
-      fzf
-    ] ++ (if pkgs.stdenv.isLinux then [
-      # Linux-specific packages
-      xclip
-      nmap
-    ] else []);
+        # System utilities
+        wget
+        curl
+        unzip
+        ripgrep
+        bat
+        eza
+        zoxide
+        fzf
+      ]
+      ++ (
+        if pkgs.stdenv.isLinux then
+          [
+            # Linux-specific packages
+            xclip
+            nmap
+          ]
+        else
+          [ ]
+      );
 
     sessionVariables = {
       EDITOR = "nvim";
