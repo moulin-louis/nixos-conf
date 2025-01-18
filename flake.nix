@@ -15,24 +15,25 @@
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , treefmt-nix
-    , nix-darwin
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      treefmt-nix,
+      nix-darwin,
     }:
     let
       # Systems
       darwinSystem = "aarch64-darwin";
       linuxSystem = "x86_64-linux";
 
-      darwinOverlay = import ./darwin/overlay.nix;
       darwinPkgs = import nixpkgs {
         system = darwinSystem;
-        overlays = [ darwinOverlay ];
       };
 
-      linuxPkgs = nixpkgs.legacyPackages.${linuxSystem};
+      linuxPkgs = import nixpkgs {
+        system = linuxSystem;
+      };
 
       # Formatters
       mkFormatter = pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
@@ -74,7 +75,7 @@
       darwinConfigurations."MacBook-Pro-de-Louis" = nix-darwin.lib.darwinSystem {
         system = darwinSystem;
         modules = [
-{
+          {
             nixpkgs.hostPlatform = darwinSystem;
             nixpkgs.pkgs = darwinPkgs;
           }

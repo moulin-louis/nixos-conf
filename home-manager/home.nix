@@ -1,15 +1,18 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ./kitty.nix
     ./fish.nix
-  ] ++ [ ];
-
+  ];
   home = {
     username = "llr";
     homeDirectory = if pkgs.stdenv.isDarwin then "/Users/llr" else "/home/llr";
     stateVersion = "24.11";
-
     packages =
       with pkgs;
       [
@@ -26,7 +29,6 @@
         nixpacks
         taplo
         typescript-language-server
-
         # System utilities
         wget
         curl
@@ -45,15 +47,12 @@
             nmap
           ]
         else
-          [ bitwarden-cli ]
-
+          [  ]
       );
-
     sessionVariables = {
       EDITOR = "nvim";
     };
   };
-
   programs = {
     home-manager.enable = true;
     nix-index.enable = true;
