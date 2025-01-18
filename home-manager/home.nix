@@ -3,7 +3,7 @@
   imports = [
     ./kitty.nix
     ./fish.nix
-  ];
+  ] ++ [ ];
 
   home = {
     username = "llr";

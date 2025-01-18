@@ -3,10 +3,24 @@
   programs.fish = {
     enable = true;
     # Fish shell aliases
+    functions = {
+      rebuild = {
+        body = ''
+          switch (uname)
+              case Darwin
+                  darwin-rebuild switch --flake $HOME/nixos-conf/#MacBook-Pro-de-Louis
+              case Linux
+                  sudo nixos-rebuild switch --flake $HOME/nixos-conf/#(hostname)
+              case '*'
+                  echo "Unsupported operating system"
+                  return 1
+          end
+        '';
+      };
+    };
     shellAliases = {
       # Common commands
       gcl = "git clone";
-      rebuild = "sudo nixos-rebuild switch --flake $HOME/nixos-conf/#(hostname)";
       ls = "eza";
       cat = "bat";
       cd = "z";
