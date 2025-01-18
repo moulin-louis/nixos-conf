@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
-  dconf.settings = {
+
+  dconf.settings = lib.mkIf pkgs.stdenv.isDarwin {
 
     "org/gnome/desktop/interface" = {
       enable-animations = false;

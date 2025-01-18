@@ -15,12 +15,11 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      treefmt-nix,
-      nix-darwin,
+    { self
+    , nixpkgs
+    , home-manager
+    , treefmt-nix
+    , nix-darwin
     }:
     let
       # Systems
@@ -64,42 +63,15 @@
       # NixOS configurations
       nixosConfigurations = {
         "pc-fixe" = mkNixosSystem { hostname = "pc-fixe"; };
-        "pc-portable" = mkNixosSystem { hostname = "pc-portable"; };
+        "pc-portable-linux" = mkNixosSystem { hostname = "pc-portable-linux"; };
       };
 
       # Darwin configuration
       darwinConfigurations."MacBook-Pro-de-Louis" = nix-darwin.lib.darwinSystem {
         system = darwinSystem;
         modules = [
-          {
-            nixpkgs = {
-              pkgs = darwinPkgs;
-              hostPlatform = darwinSystem;
-            };
-
-            # Basic Darwin config
-            environment.systemPackages = with darwinPkgs; [
-              neovim
-              fish
-            ];
-
-            nix.settings.experimental-features = [
-              "nix-command"
-              "flakes"
-            ];
-            programs.fish.enable = true;
-
-            system = {
-              configurationRevision = self.rev or self.dirtyRev or null;
-              stateVersion = 5;
-            };
-
-            users.users.llr = {
-              name = "llr";
-              home = "/Users/llr";
-              shell = darwinPkgs.fish;
-            };
-          }
+          ./darwin/configuration.nix
+          { nixpkgs.pkgs = darwinPkgs; }
 
           # Home Manager module
           home-manager.darwinModules.home-manager

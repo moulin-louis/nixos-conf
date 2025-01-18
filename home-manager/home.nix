@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports = [
     ./kitty.nix
@@ -45,7 +45,8 @@
             nmap
           ]
         else
-          [ ]
+          [ bitwarden-cli ]
+
       );
 
     sessionVariables = {
