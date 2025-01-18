@@ -47,7 +47,7 @@
             nmap
           ]
         else
-          [  ]
+          [ ]
       );
     sessionVariables = {
       EDITOR = "nvim";
