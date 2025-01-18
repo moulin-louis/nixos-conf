@@ -26,8 +26,12 @@
       darwinSystem = "aarch64-darwin";
       linuxSystem = "x86_64-linux";
 
-      # Packages
-      darwinPkgs = nixpkgs.legacyPackages.${darwinSystem};
+      darwinOverlay = import ./darwin/overlay.nix;
+      darwinPkgs = import nixpkgs {
+        system = darwinSystem;
+        overlays = [ darwinOverlay ];
+      };
+
       linuxPkgs = nixpkgs.legacyPackages.${linuxSystem};
 
       # Formatters
@@ -70,9 +74,11 @@
       darwinConfigurations."MacBook-Pro-de-Louis" = nix-darwin.lib.darwinSystem {
         system = darwinSystem;
         modules = [
+{
+            nixpkgs.hostPlatform = darwinSystem;
+            nixpkgs.pkgs = darwinPkgs;
+          }
           ./darwin/configuration.nix
-          { nixpkgs.pkgs = darwinPkgs; }
-
           # Home Manager module
           home-manager.darwinModules.home-manager
           commonHomeManagerConfig

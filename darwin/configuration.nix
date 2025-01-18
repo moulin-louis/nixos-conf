@@ -1,11 +1,5 @@
 { pkgs, lib, ... }:
-
 {
-  nixpkgs = {
-    pkgs = pkgs;
-    hostPlatform = "aarch64-darwin";
-  };
-
   # Basic Darwin config
   environment.systemPackages = with pkgs; [
     neovim
