@@ -38,6 +38,7 @@
         eza
         zoxide
         fzf
+        cargo-binstall
       ]
       ++ (
         if pkgs.stdenv.isLinux then
@@ -47,7 +48,11 @@
             nmap
           ]
         else
-          [ ]
+          [
+            pkg-config
+            openssl
+            openssl.dev
+          ]
       );
     sessionVariables = {
       EDITOR = "nvim";

@@ -6,10 +6,17 @@
     fish
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix = {
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    extraOptions = ''
+      extra-platforms = x86_64-darwin aarch64-darwin
+    '';
+
+  };
+  security.pam.enableSudoTouchIdAuth = true;
 
   programs.fish.enable = true;
 
