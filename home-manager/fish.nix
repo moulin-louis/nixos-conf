@@ -4,6 +4,33 @@
     enable = true;
     # Fish shell aliases
     functions = {
+      fish_prompt = {
+        body = ''
+    # Check if in nix shell
+    set -l nix_part ""
+    if test -n "$IN_NIX_SHELL"
+        set nix_part " [nix]"
+    end
+
+    # Get git branch
+    set -l git_part ""
+    if command -sq git
+        and test -d .git; or git rev-parse --git-dir >/dev/null 2>/dev/null
+        set -l git_branch (git branch --show-current 2>/dev/null)
+        if test $status -eq 0
+            set git_part " ($git_branch)"
+        end
+    end
+
+    # Build prompt
+    echo -n (set_color green)"$(whoami)"(set_color normal)
+    echo -n "@$(hostname -s) "
+    echo -n (set_color green)(prompt_pwd)(set_color normal)
+    echo -n "$git_part"
+    echo -n (set_color cyan)"$nix_part"
+    echo -n (set_color normal)"> "
+        '';
+      };
       rebuild = {
         body = ''
           switch (uname)
