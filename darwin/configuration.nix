@@ -19,6 +19,10 @@
   security.pam.enableSudoTouchIdAuth = true;
 
   programs.fish.enable = true;
+  homebrew = {
+    enable = true;
+    brews = ["libusb"];
+  };
 
   system = {
     configurationRevision = lib.mkDefault null;
@@ -30,4 +34,5 @@
     home = "/Users/llr";
     shell = pkgs.fish;
   };
+
 }

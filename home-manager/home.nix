@@ -39,6 +39,8 @@
         zoxide
         fzf
         cargo-binstall
+        nixfmt-rfc-style
+        transmission_4-qt6
       ]
       ++ (
         if pkgs.stdenv.isLinux then
