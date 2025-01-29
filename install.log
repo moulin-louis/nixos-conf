@@ -1,5 +1,0 @@
-Installing foundryup-zksync...
-
-Detected your preferred shell is fish and added foundryup-zksync to PATH.
-Run 'source /Users/llr/.config/fish/config.fish' or start a new terminal session to use foundryup-zksync.
-Then, simply run 'foundryup-zksync' to install foundry-zksync.
