@@ -4,6 +4,8 @@
   environment.systemPackages = with pkgs; [
     neovim
     fish
+    fd
+    lazygit
   ];
 
   nix = {
