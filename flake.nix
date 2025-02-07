@@ -12,6 +12,7 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
   outputs =
@@ -21,6 +22,7 @@
       home-manager,
       treefmt-nix,
       nix-darwin,
+      mac-app-util,
     }:
     let
       # Systems
@@ -80,6 +82,7 @@
             nixpkgs.pkgs = darwinPkgs;
           }
           ./darwin/configuration.nix
+          mac-app-util.darwinModules.default
           # Home Manager module
           home-manager.darwinModules.home-manager
           commonHomeManagerConfig

@@ -23,7 +23,7 @@
   programs.fish.enable = true;
   homebrew = {
     enable = true;
-    brews = ["libusb"];
+    brews = [ "libusb" ];
   };
 
   system = {
