@@ -26,7 +26,6 @@
   homebrew = {
     enable = true;
     brews = [
-      "telegram"
       "minikube"
     ];
   };
