@@ -41,6 +41,7 @@
         cargo-binstall
         nixfmt-rfc-style
         transmission_4-qt6
+        nmap
       ]
       ++ (
         if pkgs.stdenv.isLinux then

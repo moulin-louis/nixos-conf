@@ -6,6 +6,8 @@
     fish
     fd
     lazygit
+    luajitPackages.luarocks
+    lua
   ];
 
   nix = {
@@ -18,12 +20,15 @@
     '';
 
   };
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   programs.fish.enable = true;
   homebrew = {
     enable = true;
-    brews = [ "libusb" ];
+    brews = [
+      "telegram"
+      "minikube"
+    ];
   };
 
   system = {
