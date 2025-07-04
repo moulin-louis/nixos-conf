@@ -1,82 +1,74 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ./kitty.nix
     ./fish.nix
-    ./gnome.nix
   ];
-
   home = {
     username = "llr";
-    homeDirectory = "/home/llr";
-    enableNixpkgsReleaseCheck = false;
+    homeDirectory = if pkgs.stdenv.isDarwin then "/Users/llr" else "/home/llr";
     stateVersion = "24.11";
-
-    packages = with pkgs; [
-      # Development tools
-      git
-      vim
-      neovim
-      gnumake
-      binutils
-      cmake
-      pkg-config
-      python3
-      python312Packages.pip
-      nodejs
-      corepack_22
-      sccache
-      eslint_d
-      nixpacks
-      gnumake
-      taplo # toml formatter
-      typescript-language-server
-
-      # System utilities
-      wget
-      curl
-      unzip
-      ripgrep
-      xclip
-      bat
-      eza
-      zoxide
-      fzf
-      nmap
-      pre-commit
-      cabal-install # pre-commit deps
-      ghc # pre-commit deps
-
-      # Applications
-      jellyfin
-      jellyfin-web
-      jellyfin-ffmpeg
-      qbittorrent
-      protonmail-desktop
-      legcord
-    ];
-
+    packages =
+      with pkgs;
+      [
+        # Development tools
+        git
+        vim
+        neovim
+        python3
+        python312Packages.pip
+        nodejs
+        corepack_22
+        sccache
+        eslint_d
+        nixpacks
+        taplo
+        typescript-language-server
+        # System utilities
+        wget
+        curl
+        unzip
+        ripgrep
+        bat
+        eza
+        zoxide
+        fzf
+        cargo-binstall
+        nixfmt-rfc-style
+        transmission_4-qt6
+        nmap
+      ]
+      ++ (
+        if pkgs.stdenv.isLinux then
+          [
+            # Linux-specific packages
+            xclip
+            nmap
+          ]
+        else
+          [
+            pkg-config
+            openssl
+            openssl.dev
+          ]
+      );
     sessionVariables = {
       EDITOR = "nvim";
     };
-
   };
-
   programs = {
     home-manager.enable = true;
+    nix-index.enable = true;
     git = {
       enable = true;
       userName = "moulin-louis";
       userEmail = "louis.moulin@outlook.fr";
     };
-    firefox = {
-      enable = true;
-    };
-  };
-
-  # Your existing xresources configuration
-  xresources.properties = {
-    "Xcursor.size" = 16;
-    "Xft.dpi" = 172;
+    #firefox.enable = true;
   };
 }

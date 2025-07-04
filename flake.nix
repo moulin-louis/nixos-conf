@@ -1,5 +1,5 @@
 {
-  description = "my nixos config";
+  description = "NixOS and Darwin configurations";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -7,10 +7,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
   outputs =
@@ -19,33 +21,71 @@
       nixpkgs,
       home-manager,
       treefmt-nix,
+      nix-darwin,
+      mac-app-util,
     }:
     let
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+      # Systems
+      darwinSystem = "aarch64-darwin";
+      linuxSystem = "x86_64-linux";
+
+      darwinPkgs = import nixpkgs {
+        system = darwinSystem;
+      };
+
+      linuxPkgs = import nixpkgs {
+        system = linuxSystem;
+      };
+
+      # Formatters
+      mkFormatter = pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+
+      # Common configurations
+      commonHomeManagerConfig = {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          users.llr = import ./home-manager/home.nix;
+        };
+      };
+
+      # NixOS system builder
+      mkNixosSystem =
+        { hostname }:
+        nixpkgs.lib.nixosSystem {
+          system = linuxSystem;
+          modules = [
+            ./${hostname}/configuration.nix
+            home-manager.nixosModules.home-manager
+            commonHomeManagerConfig
+          ];
+        };
     in
     {
-      formatter.x86_64-linux = treefmtEval.config.build.wrapper;
-      nixosConfigurations."pc-fixe" = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./pc-fixe/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.llr = import ./home-manager/home.nix;
-          }
-        ];
+      formatter = {
+        ${linuxSystem} = (mkFormatter linuxPkgs).config.build.wrapper;
+        ${darwinSystem} = (mkFormatter darwinPkgs).config.build.wrapper;
       };
-      nixosConfigurations."pc-portable" = nixpkgs.lib.nixosSystem {
+
+      # NixOS configurations
+      nixosConfigurations = {
+        "pc-fixe" = mkNixosSystem { hostname = "pc-fixe"; };
+        "pc-portable-linux" = mkNixosSystem { hostname = "pc-portable-linux"; };
+      };
+
+      # Darwin configuration
+      darwinConfigurations."MacBook-Pro-de-Louis" = nix-darwin.lib.darwinSystem {
+        system = darwinSystem;
         modules = [
-          ./pc-portable/configuration.nix
-          home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.llr = import ./home-manager/home.nix;
+            nixpkgs.hostPlatform = darwinSystem;
+            nixpkgs.pkgs = darwinPkgs;
           }
+          ./darwin/configuration.nix
+          mac-app-util.darwinModules.default
+          # Home Manager module
+          home-manager.darwinModules.home-manager
+          commonHomeManagerConfig
         ];
       };
     };

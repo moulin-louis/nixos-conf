@@ -24,7 +24,7 @@
   programs.nix-ld.enable = true;
 
   # Networking
-  networking.hostName = "pc-portable";
+  networking.hostName = "pc-portable-linux";
   networking.networkmanager.enable = true;
 
   # Time and Locale

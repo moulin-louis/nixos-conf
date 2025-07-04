@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
-  dconf.settings = {
+
+  dconf.settings = lib.mkIf pkgs.stdenv.isDarwin {
 
     "org/gnome/desktop/interface" = {
       enable-animations = false;
@@ -29,9 +30,7 @@
     "org/gnome/shell/app-switcher" = {
       current-workspace-only = true;
     };
-    "org/gnome/desktop/wm/keybindings/switch-windows" = {
-      switch-windows = ["<Alt>Tab"];   
-    }; 
+
 
   };
 
