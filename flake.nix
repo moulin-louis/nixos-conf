@@ -74,7 +74,7 @@
 	"home-vps" = nixpkgs.lib.nixosSystem {
           system = linuxSystem;
           modules = [
-            ./${hostname}/configuration.nix
+            ./home-vps/configuration.nix
           ];
         };
       };
