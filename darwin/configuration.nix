@@ -8,6 +8,7 @@
     lazygit
     luajitPackages.luarocks
     lua
+    htop
   ];
 
   nix = {
@@ -26,11 +27,22 @@
   homebrew = {
     enable = true;
     brews = [
-      "minikube"
+      "terraform"
+      "terragrunt"
+      "scw"
+    ];
+    casks = [
+      "vagrant"
+      "virtualbox@beta"
     ];
   };
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+  ];
+
   system = {
+    primaryUser = "llr";
     configurationRevision = lib.mkDefault null;
     stateVersion = 5;
   };
