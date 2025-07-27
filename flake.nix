@@ -71,6 +71,12 @@
       nixosConfigurations = {
         "pc-fixe" = mkNixosSystem { hostname = "pc-fixe"; };
         "pc-portable-linux" = mkNixosSystem { hostname = "pc-portable-linux"; };
+	"home-vps" = nixpkgs.lib.nixosSystem {
+          system = linuxSystem;
+          modules = [
+            ./${hostname}/configuration.nix
+          ];
+        }
       };
 
       # Darwin configuration
