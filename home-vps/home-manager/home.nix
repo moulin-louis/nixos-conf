@@ -41,8 +41,7 @@
         nixfmt-rfc-style
         transmission_4-qt6
         nmap
-       ]
-      );
+       ];
     sessionVariables = {
       EDITOR = "nvim";
     };
