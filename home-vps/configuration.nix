@@ -25,6 +25,41 @@
     ];
   };
 
+  # here, NOT in environment.systemPackages
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # Core system libraries
+    stdenv.cc.cc.lib
+    glibc
+
+    # SSL/TLS and networking
+    openssl
+    curl
+
+    # Media libraries (for Jellyfin)
+    ffmpeg
+    libva
+    libvdpau
+
+    # Container runtime dependencies (for k3s)
+    iptables
+
+    # Common dynamic libraries
+    zlib
+    libxml2
+    libxslt
+    ncurses
+    readline
+
+    # Hardware acceleration (if applicable)
+    mesa
+    vulkan-loader
+
+    # Networking utilities
+    libnl
+    libpcap
+  ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -50,6 +85,7 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
     git
+    gcc
     #   wget
   ];
 
@@ -114,6 +150,8 @@
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
   system.copySystemConfiguration = false;
+  programs.fish.enable = true;
+  users.users.root.shell = pkgs.fish;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
