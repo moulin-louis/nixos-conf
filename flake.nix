@@ -75,6 +75,12 @@
           system = linuxSystem;
           modules = [
             ./home-vps/configuration.nix
+            home-manager.nixosModules.home-manager
+	    home-manager = {
+		  useGlobalPkgs = true;
+		  useUserPackages = true;
+		  users.llr = import ./home-manager/home.nix;
+		}
           ];
         };
       };
