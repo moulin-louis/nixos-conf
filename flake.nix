@@ -82,7 +82,7 @@
 		  useUserPackages = true;
 		  users.root = import ./home-vps/home-manager/home.nix;
 		};
-	    };
+	    }
           ];
         };
       };
