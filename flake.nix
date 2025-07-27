@@ -76,7 +76,7 @@
           modules = [
             ./${hostname}/configuration.nix
           ];
-        }
+        };
       };
 
       # Darwin configuration
