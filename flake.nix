@@ -71,18 +71,18 @@
       nixosConfigurations = {
         "pc-fixe" = mkNixosSystem { hostname = "pc-fixe"; };
         "pc-portable-linux" = mkNixosSystem { hostname = "pc-portable-linux"; };
-	"home-vps" = nixpkgs.lib.nixosSystem {
+        "home-vps" = nixpkgs.lib.nixosSystem {
           system = linuxSystem;
           modules = [
             ./home-vps/configuration.nix
             home-manager.nixosModules.home-manager
-	    {
-	    home-manager = {
-		  useGlobalPkgs = true;
-		  useUserPackages = true;
-		  users.root = import ./home-vps/home-manager/home.nix;
-		};
-	    }
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.root = import ./home-vps/home-manager/home.nix;
+              };
+            }
           ];
         };
       };

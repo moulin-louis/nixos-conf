@@ -1,11 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-nix.settings = {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
+  nix.settings = {
     trusted-users = [ "root" ];
     substituters = [
       "https://cache.nixos.org"
@@ -24,15 +29,14 @@ nix.settings = {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "home-vps"; 
+  networking.hostName = "home-vps";
 
   time.timeZone = "Europe/Paris";
 
-hardware.graphics = {
-  enable = true;
-  enable32Bit = true;
-};
-  
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
@@ -40,25 +44,25 @@ hardware.graphics = {
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-jellyfin
-jellyfin-web
-jellyfin-ffmpeg
+    jellyfin
+    jellyfin-web
+    jellyfin-ffmpeg
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
     git
-  #   wget
+    #   wget
   ];
 
-   services.tailscale.enable = true;
+  services.tailscale.enable = true;
 
   services.openssh = {
     enable = true;
-    
+
     # Only listen on Tailscale interface
     listenAddresses = [
       {
-	  addr = "100.105.249.93";
-	  port = 22;
+        addr = "100.105.249.93";
+        port = 22;
       }
     ];
 
@@ -70,7 +74,7 @@ jellyfin-ffmpeg
       PubkeyAuthentication = true;
     };
   };
-systemd.services.sshd = {
+  systemd.services.sshd = {
     after = [ "tailscaled.service" ];
     wants = [ "tailscaled.service" ];
     serviceConfig = {
@@ -100,7 +104,7 @@ systemd.services.sshd = {
   # Configure firewall rules
   networking.firewall = {
     enable = true;
-    
+
     # Or use the allowedTCPPorts with interface-specific rules
     allowedTCPPorts = [ 6443 ];
     allowedUDPPorts = [ 8472 ];
@@ -131,5 +135,3 @@ systemd.services.sshd = {
   system.stateVersion = "25.05"; # Did you read the comment?
 
 }
-
-
