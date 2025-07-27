@@ -76,10 +76,12 @@
           modules = [
             ./home-vps/configuration.nix
             home-manager.nixosModules.home-manager
+	    {
 	    home-manager = {
 		  useGlobalPkgs = true;
 		  useUserPackages = true;
-		  users.llr = import ./home-manager/home.nix;
+		  users.root = import ./home-vps/home-manager/home.nix;
+		}
 		}
           ];
         };
