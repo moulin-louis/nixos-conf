@@ -10,7 +10,7 @@
   ];
   home = {
     username = "root";
-    homeDirectory = "/home/root";
+    homeDirectory = "/root";
     stateVersion = "24.11";
     packages =
       with pkgs;
