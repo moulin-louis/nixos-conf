@@ -5,7 +5,6 @@
     enable = true;
     shellIntegration.enableFishIntegration = true;
     settings = {
-      enabled_layouts = "splits";
       copy_on_select = "clipboard";
       strip_trailing_spaces = "smart";
       clipboard_control = "write-clipboard write-primary read-clipboard read-primary";
