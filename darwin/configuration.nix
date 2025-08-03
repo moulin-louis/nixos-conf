@@ -1,8 +1,8 @@
 { pkgs, lib, ... }:
 {
+
   # Basic Darwin config
   environment.systemPackages = with pkgs; [
-    neovim
     fish
     fd
     lazygit
@@ -21,6 +21,16 @@
     '';
 
   };
+  nix.settings = {
+    trusted-users = [ "llr" ];
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+    ];
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
   security.pam.services.sudo_local.touchIdAuth = true;
 
   programs.fish.enable = true;
@@ -30,10 +40,6 @@
       "terraform"
       "terragrunt"
       "scw"
-    ];
-    casks = [
-      "vagrant"
-      "virtualbox@beta"
     ];
   };
 
@@ -52,5 +58,4 @@
     home = "/Users/llr";
     shell = pkgs.fish;
   };
-
 }
