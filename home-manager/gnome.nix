@@ -31,7 +31,6 @@
       current-workspace-only = true;
     };
 
-
   };
 
 }

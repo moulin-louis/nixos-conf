@@ -30,6 +30,7 @@
       set -g nvm_default_version lts
     '';
     shellInit = ''
+      source "$HOME/.cargo/env.fish"
       zoxide init fish | source
     '';
     plugins = [
