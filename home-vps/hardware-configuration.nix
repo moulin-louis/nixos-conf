@@ -36,11 +36,11 @@
     ];
   };
   fileSystems."/media/EHDD" = {
-    device = "/dev/disk/by-uuid/7AF5-BAC7";
-    fsType = "vfat";
+    device = "/dev/disk/by-uuid/a83b15e4-e8af-4ca2-b6e3-aedb40676a76";
+    fsType = "ext4";
     options = [
-      "fmask=0022"
-      "dmask=0022"
+      "defaults"
+      "rw"
     ];
   };
 

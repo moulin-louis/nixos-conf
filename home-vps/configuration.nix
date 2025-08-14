@@ -75,6 +75,37 @@
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
+  services.qbittorrent = {
+    enable = true;
+    serverConfig = {
+      LegalNotice.Accepted = true;
+      Preferences = {
+        WebUI = {
+          Username = "admin";
+          Password_PBKDF2 = "+aMTPThHOFREgpfyYxCPHA==:TcM+I3psI/GhR8NuYUR6H/diYIBs+XzsGGb55dsx9o1MbSPkyvUBJ0zDHdWHlfy+82jQ4+MSHVBBnyOSz70zww==";
+          BanDuration = 3600;
+          MaxAuthenticationFailCount = 5;
+          SecureCookie = true;
+          Address = "100.105.249.93";
+        };
+        General = {
+          Locale = "en";
+        };
+        Downloads = {
+          SavePath = "/media/EHDD";
+          TempPath = "/media/EHDD/incomplete/";
+
+        };
+      };
+    };
+    extraArgs = [
+      "--confirm-legal-notice"
+    ];
+  };
+  systemd.tmpfiles.rules = [
+    "d /media/EHDD/downloads 0755 qbittorrent qbittorrent - -"
+    "d /media/EHDD/incomplete 0755 qbittorrent qbittorrent - -"
+  ];
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -82,14 +113,17 @@
     jellyfin
     jellyfin-web
     jellyfin-ffmpeg
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
     git
     gcc
-    #   wget
+    certbot
+    kitty
   ];
 
   services.tailscale.enable = true;
+  systemd.services.tailscaled.environment = {
+    TS_PERMIT_CERT_UID = "caddy";
+  };
 
   services.openssh = {
     enable = true;
@@ -123,27 +157,40 @@
 
   services.jellyfin = {
     enable = true;
-    openFirewall = true;
   };
 
-  services.k3s = {
+  services.caddy = {
     enable = true;
-    role = "agent";
-    token = "K10dc4cbd3ee96a2df365c61ed95c6b050b709325d767d53b720e9cd31e5914c959::server:e801431581bef44cfa6a838c1b1fe7dd";
-    serverAddr = "https://100.77.251.72:6443";
-    extraFlags = toString [
-      "--flannel-iface=tailscale0"
-    ];
+    virtualHosts."home-vps.ilish-mohs.ts.net" = {
+      extraConfig = ''
+        reverse_proxy http://127.0.0.1:8096
+        header X-Reverse-By "Caddy"
+      '';
+
+    };
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "louis.moulin@outlook.fr";
   };
 
   networking.nftables.enable = true;
   # Configure firewall rules
   networking.firewall = {
     enable = true;
+    trustedInterfaces = [ "tailscale0" ];
 
-    # Or use the allowedTCPPorts with interface-specific rules
-    allowedTCPPorts = [ 6443 ];
-    allowedUDPPorts = [ 8472 ];
+    allowedTCPPorts = [
+      6443
+      80
+      443
+    ];
+    allowedUDPPorts = [
+      443
+      80
+      8472
+    ];
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
@@ -151,6 +198,7 @@
   # accidentally delete configuration.nix.
   system.copySystemConfiguration = false;
   programs.fish.enable = true;
+  documentation.man.generateCaches = false;
   users.users.root.shell = pkgs.fish;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
