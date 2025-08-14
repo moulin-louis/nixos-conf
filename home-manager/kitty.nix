@@ -23,6 +23,6 @@
     keybindings = {
       "ctrl+shift+enter" = "new_window_with_cwd";
     };
-    themeFile = "tokyo_night_night";
+    themeFile = "tokyo_night_storm";
   };
 }

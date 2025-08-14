@@ -40,6 +40,7 @@
       "terraform"
       "terragrunt"
       "scw"
+			"kubecolor"
     ];
   };
 
@@ -58,4 +59,10 @@
     home = "/Users/llr";
     shell = pkgs.fish;
   };
+
+	users.users."taff" = {
+			name = "llr-taff";
+			home = "/Users/llr-taff";
+			shell = pkgs.fish;
+	};
 }
