@@ -13,6 +13,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mac-app-util.url = "github:hraban/mac-app-util";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
   };
 
   outputs =
@@ -23,6 +25,7 @@
       treefmt-nix,
       nix-darwin,
       mac-app-util,
+      neovim-nightly-overlay
     }:
     let
       # Systems
@@ -45,6 +48,7 @@
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
+	  extraSpecialArgs = { inherit neovim-nightly-overlay; };
           users.llr = import ./home-manager/home.nix;
         };
       };

@@ -5,7 +5,6 @@
     enable = true;
     shellIntegration.enableFishIntegration = true;
     settings = {
-      enabled_layouts = "splits";
       copy_on_select = "clipboard";
       strip_trailing_spaces = "smart";
       clipboard_control = "write-clipboard write-primary read-clipboard read-primary";
@@ -24,6 +23,6 @@
     keybindings = {
       "ctrl+shift+enter" = "new_window_with_cwd";
     };
-    themeFile = "tokyo_night_night";
+    themeFile = "tokyo_night_storm";
   };
 }

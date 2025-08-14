@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  neovim-nightly-overlay,
   ...
 }:
 {
@@ -19,7 +20,7 @@
         # Development tools
         git
         vim
-        neovim
+	neovim-nightly-overlay.packages.${pkgs.system}.default
         python3
         python312Packages.pip
         nodejs
