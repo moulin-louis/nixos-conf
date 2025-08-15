@@ -30,21 +30,21 @@
       set -g nvm_default_version lts
     '';
     shellInit = ''
-      if test -f $HOME/.asdf/asdf.fish
-        source $HOME/.asdf/asdf.fish
-      end
-      # Source Cargo environment
-      if test -f "$HOME/.cargo/env.fish"
-        source "$HOME/.cargo/env.fish"
-      end
-      zoxide init fish | source
-			function kubectl --wraps kubectl
-				command kubecolor $argv
-			end
+            if test -f $HOME/.asdf/asdf.fish
+              source $HOME/.asdf/asdf.fish
+            end
+            # Source Cargo environment
+            if test -f "$HOME/.cargo/env.fish"
+              source "$HOME/.cargo/env.fish"
+            end
+            zoxide init fish | source
+      			function kubectl --wraps kubectl
+      				command kubecolor $argv
+      			end
 
-			function k --wraps kubectl
-				command kubecolor $argv
-			end
+      			function k --wraps kubectl
+      				command kubecolor $argv
+      			end
     '';
     plugins = [
       {

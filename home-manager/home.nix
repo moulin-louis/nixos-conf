@@ -20,7 +20,7 @@
         # Development tools
         git
         vim
-	neovim-nightly-overlay.packages.${pkgs.system}.default
+        neovim-nightly-overlay.packages.${pkgs.system}.default
         python3
         python312Packages.pip
         nodejs

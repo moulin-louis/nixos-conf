@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    deploy-rs.url = "github:serokell/deploy-rs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,11 +22,12 @@
     {
       self,
       nixpkgs,
+      deploy-rs,
       home-manager,
       treefmt-nix,
       nix-darwin,
       mac-app-util,
-      neovim-nightly-overlay
+      neovim-nightly-overlay,
     }:
     let
       # Systems
@@ -48,7 +50,7 @@
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-	  extraSpecialArgs = { inherit neovim-nightly-overlay; };
+          extraSpecialArgs = { inherit neovim-nightly-overlay; };
           users.llr = import ./home-manager/home.nix;
         };
       };

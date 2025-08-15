@@ -23,7 +23,7 @@
       "nix-command"
       "flakes"
     ];
-		download-buffer-size = 524288000;
+    download-buffer-size = 524288000;
   };
 
   # here, NOT in environment.systemPackages
