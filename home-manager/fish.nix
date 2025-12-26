@@ -20,7 +20,7 @@
     };
     shellAliases = {
       # Common commands
-      gcl = "git clone";
+      gcl = "git clone --depth 1";
       ls = "eza";
       cat = "bat";
       cd = "z";

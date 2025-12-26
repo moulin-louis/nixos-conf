@@ -43,6 +43,7 @@
         nixfmt-rfc-style
         transmission_4-qt6
         nmap
+	gnupg
       ]
       ++ (
         if pkgs.stdenv.isLinux then
@@ -67,8 +68,12 @@
     nix-index.enable = true;
     git = {
       enable = true;
-      userName = "moulin-louis";
-      userEmail = "louis.moulin@outlook.fr";
+      settings = {
+	  user = {
+	      email = "louis.moulin@outlook.fr";
+	      name = "moulin-louis";
+	    };
+	};
     };
     #firefox.enable = true;
   };
