@@ -3,18 +3,20 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    deploy-rs.url = "github:serokell/deploy-rs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    treefmt-nix.url = "github:numtide/treefmt-nix";
     nix-darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mac-app-util.url = "github:hraban/mac-app-util";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
@@ -22,12 +24,11 @@
     {
       self,
       nixpkgs,
-      deploy-rs,
       home-manager,
-      treefmt-nix,
       nix-darwin,
       mac-app-util,
       neovim-nightly-overlay,
+nix-index-database,
     }:
     let
       # Systems
@@ -38,18 +39,12 @@
         system = darwinSystem;
       };
 
-      linuxPkgs = import nixpkgs {
-        system = linuxSystem;
-      };
-
-      # Formatters
-      mkFormatter = pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
 
       # Common configurations
       commonHomeManagerConfig = {
         home-manager = {
           useGlobalPkgs = true;
-          useUserPackages = true;
+	    useUserPackages = true;
           extraSpecialArgs = { inherit neovim-nightly-overlay; };
           users.llr = import ./home-manager/home.nix;
         };
@@ -68,11 +63,6 @@
         };
     in
     {
-      formatter = {
-        ${linuxSystem} = (mkFormatter linuxPkgs).config.build.wrapper;
-        ${darwinSystem} = (mkFormatter darwinPkgs).config.build.wrapper;
-      };
-
       # NixOS configurations
       nixosConfigurations = {
         "pc-fixe" = mkNixosSystem { hostname = "pc-fixe"; };
@@ -105,6 +95,8 @@
           mac-app-util.darwinModules.default
           # Home Manager module
           home-manager.darwinModules.home-manager
+	  nix-index-database.darwinModules.nix-index
+	  { programs.nix-index-database.comma.enable = true; }
           commonHomeManagerConfig
         ];
       };

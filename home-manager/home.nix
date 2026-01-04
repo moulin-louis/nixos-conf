@@ -44,6 +44,7 @@
         transmission_4-qt6
         nmap
 	gnupg
+	nil
       ]
       ++ (
         if pkgs.stdenv.isLinux then
