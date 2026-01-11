@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     # Editors
     vim
-    neovim-nightly-overlay.packages.${pkgs.system}.default
+    neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Languages & runtimes
     python3
