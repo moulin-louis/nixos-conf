@@ -17,7 +17,6 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
   outputs =
@@ -28,77 +27,29 @@
       nix-darwin,
       mac-app-util,
       neovim-nightly-overlay,
-nix-index-database,
+      nix-index-database,
     }:
     let
-      # Systems
-      darwinSystem = "aarch64-darwin";
-      linuxSystem = "x86_64-linux";
-
-      darwinPkgs = import nixpkgs {
-        system = darwinSystem;
+      lib = import ./lib {
+        inherit
+          nixpkgs
+          home-manager
+          nix-darwin
+          mac-app-util
+          nix-index-database
+          neovim-nightly-overlay
+          ;
       };
 
-
-      # Common configurations
-      commonHomeManagerConfig = {
-        home-manager = {
-          useGlobalPkgs = true;
-	    useUserPackages = true;
-          extraSpecialArgs = { inherit neovim-nightly-overlay; };
-          users.llr = import ./home-manager/home.nix;
-        };
-      };
-
-      # NixOS system builder
-      mkNixosSystem =
-        { hostname }:
-        nixpkgs.lib.nixosSystem {
-          system = linuxSystem;
-          modules = [
-            ./${hostname}/configuration.nix
-            home-manager.nixosModules.home-manager
-            commonHomeManagerConfig
-          ];
-        };
+      inherit (lib) mkNixosSystem mkDarwinSystem;
     in
     {
-      # NixOS configurations
       nixosConfigurations = {
         "pc-fixe" = mkNixosSystem { hostname = "pc-fixe"; };
-        "pc-portable-linux" = mkNixosSystem { hostname = "pc-portable-linux"; };
-        "home-vps" = nixpkgs.lib.nixosSystem {
-          system = linuxSystem;
-          modules = [
-            ./home-vps/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.root = import ./home-vps/home-manager/home.nix;
-              };
-            }
-          ];
-        };
       };
 
-      # Darwin configuration
-      darwinConfigurations."MacBook-Pro-de-Louis" = nix-darwin.lib.darwinSystem {
-        system = darwinSystem;
-        modules = [
-          {
-            nixpkgs.hostPlatform = darwinSystem;
-            nixpkgs.pkgs = darwinPkgs;
-          }
-          ./darwin/configuration.nix
-          mac-app-util.darwinModules.default
-          # Home Manager module
-          home-manager.darwinModules.home-manager
-	  nix-index-database.darwinModules.nix-index
-	  { programs.nix-index-database.comma.enable = true; }
-          commonHomeManagerConfig
-        ];
+      darwinConfigurations = {
+        "MacBook-Pro-de-Louis" = mkDarwinSystem { hostname = "macbook"; };
       };
     };
 }
