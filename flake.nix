@@ -21,13 +21,13 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       home-manager,
       nix-darwin,
       mac-app-util,
       neovim-nightly-overlay,
       nix-index-database,
+      ...
     }:
     let
       lib = import ./lib {
