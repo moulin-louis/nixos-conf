@@ -42,6 +42,13 @@
       };
 
       inherit (lib) mkNixosSystem mkDarwinSystem;
+
+      # Systems to generate devShells and formatters for
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
       nixosConfigurations = {
@@ -51,5 +58,25 @@
       darwinConfigurations = {
         "MacBook-Pro-de-Louis" = mkDarwinSystem { hostname = "macbook"; };
       };
+
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt);
+
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            name = "nixos-conf";
+            packages = with pkgs; [
+              nil
+              nixfmt
+              statix
+              deadnix
+            ];
+          };
+        }
+      );
     };
 }

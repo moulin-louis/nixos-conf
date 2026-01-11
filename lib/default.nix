@@ -12,17 +12,25 @@ let
   linuxSystem = "x86_64-linux";
 
   # Common home-manager configuration shared across all systems
-  mkCommonHomeManagerConfig = { user ? "llr" }: {
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      extraSpecialArgs = { inherit neovim-nightly-overlay; };
-      users.${user} = import ../modules/home;
+  mkCommonHomeManagerConfig =
+    {
+      user ? "llr",
+    }:
+    {
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        extraSpecialArgs = { inherit neovim-nightly-overlay; };
+        users.${user} = import ../modules/home;
+      };
     };
-  };
 
   # NixOS system builder
-  mkNixosSystem = { hostname, user ? "llr" }:
+  mkNixosSystem =
+    {
+      hostname,
+      user ? "llr",
+    }:
     nixpkgs.lib.nixosSystem {
       system = linuxSystem;
       modules = [
@@ -33,7 +41,11 @@ let
     };
 
   # Darwin system builder
-  mkDarwinSystem = { hostname, user ? "llr" }:
+  mkDarwinSystem =
+    {
+      hostname,
+      user ? "llr",
+    }:
     let
       darwinPkgs = import nixpkgs { system = darwinSystem; };
     in
