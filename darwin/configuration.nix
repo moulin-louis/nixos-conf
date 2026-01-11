@@ -4,11 +4,6 @@
   # Basic Darwin config
   environment.systemPackages = with pkgs; [
     fish
-    fd
-    lazygit
-    luajitPackages.luarocks
-    lua
-    htop
   ];
 
   nix = {
@@ -36,17 +31,14 @@
   programs.fish.enable = true;
   homebrew = {
     enable = true;
-    brews = [
-      "terraform"
-      "terragrunt"
-      "scw"
-      "kubecolor"
-    ];
   };
 
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
   ];
+
+  # Disable man page generation
+  documentation.man.enable = false;
 
   system = {
     primaryUser = "llr";
@@ -57,12 +49,6 @@
   users.users.llr = {
     name = "llr";
     home = "/Users/llr";
-    shell = pkgs.fish;
-  };
-
-  users.users."taff" = {
-    name = "llr-taff";
-    home = "/Users/llr-taff";
     shell = pkgs.fish;
   };
 }

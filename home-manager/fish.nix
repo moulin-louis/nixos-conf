@@ -30,21 +30,25 @@
       set -g nvm_default_version lts
     '';
     shellInit = ''
-            if test -f $HOME/.asdf/asdf.fish
-              source $HOME/.asdf/asdf.fish
-            end
             # Source Cargo environment
             if test -f "$HOME/.cargo/env.fish"
               source "$HOME/.cargo/env.fish"
             end
             zoxide init fish | source
-      			function kubectl --wraps kubectl
-      				command kubecolor $argv
-      			end
+	    function kubectl --wraps kubectl
+		    command kubecolor $argv
+	    end
 
-      			function k --wraps kubectl
-      				command kubecolor $argv
-      			end
+	    function k --wraps kubectl
+		    command kubecolor $argv
+	    end
+	    if test -d (brew --prefix)"/share/fish/completions"
+	      set -p fish_complete_path (brew --prefix)/share/fish/completions
+	    end
+
+	    if test -d (brew --prefix)"/share/fish/vendor_completions.d"
+	      set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+	    end
     '';
     plugins = [
       {

@@ -40,11 +40,12 @@
         zoxide
         fzf
         cargo-binstall
-        nixfmt-rfc-style
+        nixfmt
         transmission_4-qt6
         nmap
-	gnupg
-	nil
+        gnupg
+        nil
+        bison
       ]
       ++ (
         if pkgs.stdenv.isLinux then
@@ -58,6 +59,7 @@
             pkg-config
             openssl
             openssl.dev
+            pinentry_mac
           ]
       );
     sessionVariables = {
@@ -70,11 +72,11 @@
     git = {
       enable = true;
       settings = {
-	  user = {
-	      email = "louis.moulin@outlook.fr";
-	      name = "moulin-louis";
-	    };
-	};
+        user = {
+          email = "louis.moulin@outlook.fr";
+          name = "moulin-louis";
+        };
+      };
     };
     #firefox.enable = true;
   };
