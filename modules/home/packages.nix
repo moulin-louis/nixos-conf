@@ -9,28 +9,25 @@
     with pkgs;
     [
       # Editors
-      vim
       neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       # Languages & runtimes
-      python3
-      python312Packages.pip
-      nodejs
-      corepack_22
+      uv
+      rustup
+      go
+      gotools # goimports
+      lua
+      luajitPackages.luarocks
 
-      # Build tools
-      sccache
-      bison
-
-      # Language servers & linters
-      nil
-      eslint_d
-      taplo
-      typescript-language-server
-
-      # DevOps
-      nixpacks
+      # DevOps & Kubernetes
       nixfmt
+      kind
+      ko
+      kustomize
+      kubecolor
+
+      # Cloud
+      scaleway-cli # scw
 
       # CLI utilities
       wget
@@ -41,6 +38,13 @@
       eza
       zoxide
       fzf
+      fd
+      dive
+      dust
+      lazygit
+      delta
+      difftastic
+      htop
 
       # System tools
       nmap
@@ -48,7 +52,6 @@
 
       # Misc
       cargo-binstall
-      transmission_4-qt6
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       xclip
