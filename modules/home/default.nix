@@ -1,83 +1,24 @@
-{
-  config,
-  pkgs,
-  lib,
-  neovim-nightly-overlay,
-  ...
-}:
+{ pkgs, ... }:
 {
   imports = [
-    ./kitty.nix
+    ./packages.nix
+    ./git.nix
     ./fish.nix
+    ./kitty.nix
+    ./gnome.nix
   ];
+
   home = {
     username = "llr";
     homeDirectory = if pkgs.stdenv.isDarwin then "/Users/llr" else "/home/llr";
     stateVersion = "24.11";
-    packages =
-      with pkgs;
-      [
-        # Development tools
-        git
-        vim
-        neovim-nightly-overlay.packages.${pkgs.system}.default
-        python3
-        python312Packages.pip
-        nodejs
-        corepack_22
-        sccache
-        eslint_d
-        nixpacks
-        taplo
-        typescript-language-server
-        # System utilities
-        wget
-        curl
-        unzip
-        ripgrep
-        bat
-        eza
-        zoxide
-        fzf
-        cargo-binstall
-        nixfmt
-        transmission_4-qt6
-        nmap
-        gnupg
-        nil
-        bison
-      ]
-      ++ (
-        if pkgs.stdenv.isLinux then
-          [
-            # Linux-specific packages
-            xclip
-            nmap
-          ]
-        else
-          [
-            pkg-config
-            openssl
-            openssl.dev
-            pinentry_mac
-          ]
-      );
     sessionVariables = {
       EDITOR = "nvim";
     };
   };
+
   programs = {
     home-manager.enable = true;
     nix-index.enable = true;
-    git = {
-      enable = true;
-      settings = {
-        user = {
-          email = "louis.moulin@outlook.fr";
-          name = "moulin-louis";
-        };
-      };
-    };
-    #firefox.enable = true;
   };
 }

@@ -54,20 +54,20 @@
   # X11 and Desktop Environment
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
     xkb = {
       layout = "us";
       variant = "";
     };
     videoDrivers = [ "nvidia" ];
   };
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
   services.libinput.mouse = {
     accelProfile = "flat";
   };
 
   # Sound
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
