@@ -18,6 +18,7 @@
       gotools # goimports
       lua
       luajitPackages.luarocks
+      tree-sitter
 
       # DevOps & Kubernetes
       nixfmt
