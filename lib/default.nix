@@ -35,6 +35,7 @@ let
     nixpkgs.lib.nixosSystem {
       system = linuxSystem;
       modules = [
+        { documentation.enable = false; }
         ../hosts/${hostname}/configuration.nix
         home-manager.nixosModules.home-manager
         (mkCommonHomeManagerConfig { inherit user; })
@@ -72,6 +73,7 @@ let
         {
           nixpkgs.hostPlatform = darwinSystem;
           nixpkgs.pkgs = darwinPkgs;
+          documentation.enable = false;
         }
         ../hosts/${hostname}/configuration.nix
         mac-app-util.darwinModules.default

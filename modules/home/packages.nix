@@ -10,21 +10,15 @@
     [
       # Editors
       neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
+      openvpn
+      libfido2
 
-      # Languages & runtimes
-      uv
-      rustup
-      go
-      gotools # goimports
       lua
-      luajitPackages.luarocks
       tree-sitter
 
       # DevOps & Kubernetes
       nixfmt
       kind
-      ko
-      kustomize
       kubecolor
 
       # Cloud
@@ -43,7 +37,6 @@
       dive
       dust
       lazygit
-      delta
       difftastic
       htop
 
