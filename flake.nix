@@ -57,6 +57,10 @@
 
       darwinConfigurations = {
         "MacBook-Pro-de-Louis" = mkDarwinSystem { hostname = "macbook"; };
+        "Louiss-MacBook-Pro" = mkDarwinSystem {
+          hostname = "louiss-macbook-pro";
+          homeModule = ./hosts/louiss-macbook-pro/home.nix;
+        };
       };
 
       homeConfigurations = {

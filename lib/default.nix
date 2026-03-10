@@ -15,13 +15,14 @@ let
   mkCommonHomeManagerConfig =
     {
       user ? "llr",
+      homeModule ? ../modules/home,
     }:
     {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
         extraSpecialArgs = { inherit neovim-nightly-overlay; };
-        users.${user} = import ../modules/home;
+        users.${user} = import homeModule;
       };
     };
 
@@ -60,6 +61,7 @@ let
     {
       hostname,
       user ? "llr",
+      homeModule ? ../modules/home,
     }:
     let
       darwinPkgs = import nixpkgs { system = darwinSystem; };
@@ -76,7 +78,7 @@ let
         home-manager.darwinModules.home-manager
         nix-index-database.darwinModules.nix-index
         { programs.nix-index-database.comma.enable = true; }
-        (mkCommonHomeManagerConfig { inherit user; })
+        (mkCommonHomeManagerConfig { inherit user homeModule; })
         {
           home-manager.sharedModules = [ mac-app-util.homeManagerModules.default ];
         }
