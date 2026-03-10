@@ -4,8 +4,8 @@ _:
     enable = true;
     settings = {
       user = {
-        name = "moulin-louis";
-        email = "louis.moulin@outlook.fr";
+        name = "lomoulin";
+        email = "lomoulin@iliad-free.fr";
       };
       init.defaultBranch = "main";
     };

@@ -12,6 +12,8 @@
       neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
       openvpn
       libfido2
+      openssh
+      mold
 
       lua
       tree-sitter
