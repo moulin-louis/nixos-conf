@@ -4,6 +4,9 @@ _:
   programs.kitty = {
     enable = true;
     shellIntegration.enableFishIntegration = true;
+    shellIntegration.enableBashIntegration = true;
+    shellIntegration.enableZshIntegration = true;
+    shellIntegration.mode = "enabled";
     settings = {
       copy_on_select = "clipboard";
       strip_trailing_spaces = "smart";

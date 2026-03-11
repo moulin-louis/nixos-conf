@@ -21,6 +21,7 @@
       # DevOps & Kubernetes
       nixfmt
       kind
+      kubectl
       kubecolor
 
       # Cloud
