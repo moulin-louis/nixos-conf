@@ -14,6 +14,10 @@
       libfido2
       openssh
       mold
+      docker
+      colima
+      oxlint
+      oxfmt
 
       lua
       tree-sitter
