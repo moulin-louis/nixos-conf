@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs.fish = {
     enable = true;
@@ -42,6 +42,7 @@
       	    function k --wraps kubectl
       		    command kubecolor $argv
       	    end
+${lib.optionalString pkgs.stdenv.isDarwin ''
       	    if test -d (brew --prefix)"/share/fish/completions"
       	      set -p fish_complete_path (brew --prefix)/share/fish/completions
       	    end
@@ -49,6 +50,7 @@
       	    if test -d (brew --prefix)"/share/fish/vendor_completions.d"
       	      set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
       	    end
+''}
     '';
     plugins = [
       {
