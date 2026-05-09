@@ -37,8 +37,7 @@
     nerd-fonts.fira-code
   ];
 
-  # Disable man page generation
-  documentation.man.enable = false;
+  documentation.enable = false;
 
   system = {
     primaryUser = "llr";

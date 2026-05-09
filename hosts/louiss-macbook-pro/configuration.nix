@@ -37,7 +37,7 @@
     nerd-fonts.fira-code
   ];
 
-  documentation.man.enable = false;
+  documentation.enable = false;
 
   system = {
     primaryUser = "llr";

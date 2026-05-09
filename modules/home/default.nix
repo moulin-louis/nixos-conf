@@ -19,5 +19,7 @@
   programs = {
     home-manager.enable = true;
     nix-index.enable = true;
+    man.enable = false;
+    man.generateCaches = false;
   };
 }
