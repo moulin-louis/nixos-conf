@@ -74,4 +74,9 @@
       darwin-rebuild switch --flake $HOME/nixos-conf/#Louiss-MacBook-Pro
     '';
   };
+
+  programs.git.settings.user = lib.mkForce {
+    name = "lomoulin";
+    email = "lomoulin@iliad-free.fr";
+  };
 }
