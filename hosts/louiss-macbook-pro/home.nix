@@ -9,7 +9,6 @@
     ../../modules/home/git.nix
     ../../modules/home/fish.nix
     ../../modules/home/kitty.nix
-    ../../modules/home/gnome.nix
   ];
 
   home = {

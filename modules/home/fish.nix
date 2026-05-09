@@ -2,24 +2,14 @@
 {
   programs.fish = {
     enable = true;
-    # Fish shell aliases
     functions = {
       rebuild = {
         body = ''
-          switch (uname)
-              case Darwin
-                  darwin-rebuild switch --flake $HOME/nixos-conf/#MacBook-Pro-de-Louis
-              case Linux
-                  sudo nixos-rebuild switch --flake $HOME/nixos-conf/#(hostname)
-              case '*'
-                  echo "Unsupported operating system"
-                  return 1
-          end
+          darwin-rebuild switch --flake $HOME/nixos-conf/#MacBook-Pro-de-Louis
         '';
       };
     };
     shellAliases = {
-      # Common commands
       gcl = "git clone --depth 1";
       ls = "eza";
       cat = "bat";
@@ -30,26 +20,23 @@
       set -g nvm_default_version lts
     '';
     shellInit = ''
-                  # Source Cargo environment
-                  if test -f "$HOME/.cargo/env.fish"
-                    source "$HOME/.cargo/env.fish"
-                  end
-                  zoxide init fish | source
-      	    function kubectl --wraps kubectl
-      		    command kubecolor $argv
-      	    end
-
-      	    function k --wraps kubectl
-      		    command kubecolor $argv
-      	    end
+      if test -f "$HOME/.cargo/env.fish"
+        source "$HOME/.cargo/env.fish"
+      end
+      zoxide init fish | source
+      function kubectl --wraps kubectl
+        command kubecolor $argv
+      end
+      function k --wraps kubectl
+        command kubecolor $argv
+      end
 ${lib.optionalString pkgs.stdenv.isDarwin ''
-      	    if test -d (brew --prefix)"/share/fish/completions"
-      	      set -p fish_complete_path (brew --prefix)/share/fish/completions
-      	    end
-
-      	    if test -d (brew --prefix)"/share/fish/vendor_completions.d"
-      	      set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
-      	    end
+      if test -d (brew --prefix)"/share/fish/completions"
+        set -p fish_complete_path (brew --prefix)/share/fish/completions
+      end
+      if test -d (brew --prefix)"/share/fish/vendor_completions.d"
+        set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+      end
 ''}
     '';
     plugins = [

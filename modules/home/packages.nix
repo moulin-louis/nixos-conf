@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   neovim-nightly-overlay,
   ...
 }:
@@ -55,11 +54,8 @@
 
       # Misc
       cargo-binstall
-    ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
-      xclip
-    ]
-    ++ lib.optionals pkgs.stdenv.isDarwin [
+
+      # macOS
       pkg-config
       openssl
       openssl.dev

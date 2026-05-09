@@ -7,44 +7,27 @@
   neovim-nightly-overlay,
 }:
 let
-  # Systems
   darwinSystem = "aarch64-darwin";
-  linuxSystem = "x86_64-linux";
 
-  # Common home-manager configuration shared across all systems
   mkCommonHomeManagerConfig =
     {
       user ? "llr",
+      homeModule ? ../modules/home,
     }:
     {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
         extraSpecialArgs = { inherit neovim-nightly-overlay; };
-        users.${user} = import ../modules/home;
+        users.${user} = import homeModule;
       };
     };
 
-  # NixOS system builder
-  mkNixosSystem =
-    {
-      hostname,
-      user ? "llr",
-    }:
-    nixpkgs.lib.nixosSystem {
-      system = linuxSystem;
-      modules = [
-        ../hosts/${hostname}/configuration.nix
-        home-manager.nixosModules.home-manager
-        (mkCommonHomeManagerConfig { inherit user; })
-      ];
-    };
-
-  # Darwin system builder
   mkDarwinSystem =
     {
       hostname,
       user ? "llr",
+      homeModule ? ../modules/home,
     }:
     let
       darwinPkgs = import nixpkgs { system = darwinSystem; };
@@ -61,7 +44,7 @@ let
         home-manager.darwinModules.home-manager
         nix-index-database.darwinModules.nix-index
         { programs.nix-index-database.comma.enable = true; }
-        (mkCommonHomeManagerConfig { inherit user; })
+        (mkCommonHomeManagerConfig { inherit user homeModule; })
         {
           home-manager.sharedModules = [ mac-app-util.homeManagerModules.default ];
         }
@@ -71,8 +54,6 @@ in
 {
   inherit
     darwinSystem
-    linuxSystem
-    mkNixosSystem
     mkDarwinSystem
     mkCommonHomeManagerConfig
     ;

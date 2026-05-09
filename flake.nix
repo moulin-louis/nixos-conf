@@ -1,5 +1,5 @@
 {
-  description = "NixOS and Darwin configurations";
+  description = "Darwin configurations";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -41,34 +41,30 @@
           ;
       };
 
-      inherit (lib) mkNixosSystem mkDarwinSystem;
+      inherit (lib) mkDarwinSystem;
 
-      # Systems to generate devShells and formatters for
-      systems = [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
+      system = "aarch64-darwin";
+      forAllSystems = nixpkgs.lib.genAttrs [ system ];
     in
     {
-      nixosConfigurations = {
-        "pc-fixe" = mkNixosSystem { hostname = "pc-fixe"; };
-      };
-
       darwinConfigurations = {
         "MacBook-Pro-de-Louis" = mkDarwinSystem { hostname = "macbook"; };
+        "Louiss-MacBook-Pro" = mkDarwinSystem {
+          hostname = "louiss-macbook-pro";
+          homeModule = ./hosts/louiss-macbook-pro/home.nix;
+        };
       };
 
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt);
+      formatter = forAllSystems (s: nixpkgs.legacyPackages.${s}.nixfmt);
 
       devShells = forAllSystems (
-        system:
+        s:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = nixpkgs.legacyPackages.${s};
         in
         {
           default = pkgs.mkShell {
-            name = "nixos-conf";
+            name = "nix-conf";
             packages = with pkgs; [
               nil
               nixfmt
