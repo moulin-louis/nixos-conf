@@ -13,23 +13,15 @@
       # Languages & runtimes
       uv
       rustup
-      go
-      gotools # goimports
-      lua
-      luajitPackages.luarocks
+
+      # Apps
       iina
       proton-vpn
       protonmail-desktop
 
       # DevOps & Kubernetes
       nixfmt
-      kind
-      ko
-      kustomize
       kubecolor
-
-      # Cloud
-      scaleway-cli # scw
 
       # CLI utilities
       wget
@@ -41,24 +33,17 @@
       zoxide
       fzf
       fd
-      dive
-      dust
       lazygit
-      delta
       difftastic
       htop
 
       # System tools
-      nmap
       gnupg
 
       # Misc
       cargo-binstall
 
       # macOS
-      pkg-config
-      openssl
-      openssl.dev
       pinentry_mac
     ];
 }
