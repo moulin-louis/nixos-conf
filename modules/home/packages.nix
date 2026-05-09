@@ -18,6 +18,9 @@
       gotools # goimports
       lua
       luajitPackages.luarocks
+      iina
+      proton-vpn
+      protonmail-desktop
 
       # DevOps & Kubernetes
       nixfmt
